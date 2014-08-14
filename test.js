@@ -2,7 +2,7 @@
 var assert = require('assert');
 var fs = require('fs');
 var concat = require('concat-stream');
-var firstChunkMinSize = require('./index');
+var firstChunkMinSize = require('./');
 
 it('should should ensure the first chunk is minimum of a set size', function (cb) {
 	var stream = fs.createReadStream('fixture', {highWaterMark: 1})
