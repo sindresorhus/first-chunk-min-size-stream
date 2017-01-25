@@ -7,7 +7,7 @@ Useful if you want to do something to the first chunk and need it to be of a cer
 
 ## Install
 
-```sh
+```
 $ npm install --save first-chunk-min-size-stream
 ```
 
@@ -15,13 +15,12 @@ $ npm install --save first-chunk-min-size-stream
 ## Usage
 
 ```js
-var fs = require('fs');
-var firstChunkMinSize = require('first-chunk-min-size-stream');
+const fs = require('fs');
+const FirstChunkMinSize = require('first-chunk-min-size-stream');
 
-fs.createReadStream('unicorn.txt', {highWaterMark: 1})
-	// `highWaterMark: 1` means it will only read 1 byte at the time
-	.pipe(firstChunkMinSize({minSize: 7}))
-	.once('data', function (data) {
+fs.createReadStream('unicorn.txt', {highWaterMark: 1}) // `highWaterMark: 1` means it will only read 1 byte at the time
+	.pipe(new FirstChunkMinSize({minSize: 7}))
+	.once('data', data => {
 		console.log(data.length);
 		//=> 7
 	});
@@ -32,14 +31,18 @@ fs.createReadStream('unicorn.txt', {highWaterMark: 1})
 
 ### firstChunkMinSize(options)
 
-#### options.minSize
+#### options
 
-*Required*  
+Type: `Object`
+
+##### minSize
+
+*Required*<br>
 Type: `number`
 
-The minimum size of the first chunk.
+Minimum size of the first chunk.
 
 
 ## License
 
-MIT © [Sindre Sorhus](http://sindresorhus.com)
+MIT © [Sindre Sorhus](https://sindresorhus.com)

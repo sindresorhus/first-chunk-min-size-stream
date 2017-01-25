@@ -1,29 +1,26 @@
-'use strict';
-var assert = require('assert');
-var fs = require('fs');
-var concat = require('concat-stream');
-var firstChunkMinSize = require('./');
+import fs from 'fs';
+import test from 'ava';
+import getStream from 'get-stream';
+import FirstChunkMinSize from '.';
 
-it('should should ensure the first chunk is minimum of a set size', function (cb) {
-	var stream = fs.createReadStream('fixture', {highWaterMark: 1})
-		.pipe(firstChunkMinSize({minSize: 7}));
+test('ensure the first chunk is minimum of a set size', async t => {
+	t.plan(2);
 
-	stream.once('data', function (data) {
-		assert.strictEqual(data.toString(), 'unicorn');
+	const stream = fs.createReadStream('fixture', {highWaterMark: 1})
+		.pipe(new FirstChunkMinSize({minSize: 7}));
+
+	stream.once('data', data => {
+		t.is(data.toString(), 'unicorn');
 	});
 
-	stream.pipe(concat(function (data) {
-		assert.deepEqual(data, fs.readFileSync('fixture'));
-	}));
-
-	stream.on('end', cb);
+	const buf = await getStream.buffer(stream);
+	t.deepEqual(buf, fs.readFileSync('fixture'));
 });
 
-it('should should work with default `highWaterMark`', function (cb) {
-	fs.createReadStream('fixture')
-		.pipe(firstChunkMinSize({minSize: 7}))
-		.pipe(concat(function (data) {
-			assert.deepEqual(data, fs.readFileSync('fixture'));
-			cb();
-		}));
+test('work with default `highWaterMark`', async t => {
+	const stream = fs.createReadStream('fixture')
+		.pipe(new FirstChunkMinSize({minSize: 7}));
+
+	const buf = await getStream.buffer(stream);
+	t.deepEqual(buf, fs.readFileSync('fixture'));
 });
