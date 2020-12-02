@@ -1,16 +1,14 @@
-# first-chunk-min-size-stream [![Build Status](https://travis-ci.org/sindresorhus/first-chunk-min-size-stream.svg?branch=master)](https://travis-ci.org/sindresorhus/first-chunk-min-size-stream)
+# first-chunk-min-size-stream
 
 > Set the minimum size of the first chunk in a stream
 
 Useful if you want to do something to the first chunk and need it to be of a certain size.
-
 
 ## Install
 
 ```
 $ npm install --save first-chunk-min-size-stream
 ```
-
 
 ## Usage
 
@@ -26,23 +24,17 @@ fs.createReadStream('unicorn.txt', {highWaterMark: 1}) // `highWaterMark: 1` mea
 	});
 ```
 
-
 ## API
 
 ### firstChunkMinSize(options)
 
 #### options
 
-Type: `Object`
+Type: `object`
 
 ##### minSize
 
-*Required*<br>
+*Required*\
 Type: `number`
 
 Minimum size of the first chunk.
-
-
-## License
-
-MIT © [Sindre Sorhus](https://sindresorhus.com)
