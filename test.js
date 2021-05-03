@@ -1,7 +1,7 @@
-import fs from 'fs';
+import fs from 'node:fs';
 import test from 'ava';
 import getStream from 'get-stream';
-import FirstChunkMinSize from '.';
+import FirstChunkMinSize from './index.js';
 
 test('ensure the first chunk is minimum of a set size', async t => {
 	t.plan(2);

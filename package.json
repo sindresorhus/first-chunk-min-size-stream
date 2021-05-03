@@ -1,38 +1,41 @@
 {
-  "name": "first-chunk-min-size-stream",
-  "version": "2.0.0",
-  "description": "Set the minimum size of the first chunk in a stream",
-  "license": "MIT",
-  "repository": "sindresorhus/first-chunk-min-size-stream",
-  "author": {
-    "name": "Sindre Sorhus",
-    "email": "sindresorhus@gmail.com",
-    "url": "sindresorhus.com"
-  },
-  "engines": {
-    "node": ">=4"
-  },
-  "scripts": {
-    "test": "xo && ava"
-  },
-  "files": [
-    "index.js"
-  ],
-  "keywords": [
-    "buffer",
-    "string",
-    "stream",
-    "streams",
-    "transform",
-    "first",
-    "chunk",
-    "size",
-    "min",
-    "minimum"
-  ],
-  "devDependencies": {
-    "ava": "*",
-    "get-stream": "^3.0.0",
-    "xo": "*"
-  }
+	"name": "first-chunk-min-size-stream",
+	"version": "2.0.0",
+	"description": "Set the minimum size of the first chunk in a stream",
+	"license": "MIT",
+	"repository": "sindresorhus/first-chunk-min-size-stream",
+	"funding": "https://github.com/sponsors/sindresorhus",
+	"author": {
+		"name": "Sindre Sorhus",
+		"email": "sindresorhus@gmail.com",
+		"url": "https://sindresorhus.com"
+	},
+	"type": "module",
+	"exports": "./index.js",
+	"engines": {
+		"node": ">=12"
+	},
+	"scripts": {
+		"test": "xo && ava"
+	},
+	"files": [
+		"index.js"
+	],
+	"keywords": [
+		"buffer",
+		"string",
+		"stream",
+		"streams",
+		"transform",
+		"first",
+		"chunk",
+		"size",
+		"min",
+		"minimum"
+	],
+	"devDependencies": {
+		"ava": "^3.15.0",
+		"get-stream": "^6.0.1",
+		"xo": "^0.39.1"
+	}
 }

@@ -1,48 +1,47 @@
-'use strict';
-const Transform = require('stream').Transform;
+import {Transform as TransformStream} from 'node:stream';
 
-class FirstChunkMinSizeStream extends Transform {
-	constructor(opts) {
-		opts = opts || {};
+// TODO: Use private class fields here when ESLint supports it.
 
-		if (typeof opts.minSize !== 'number') {
-			throw new Error('`minSize` option required');
+export default class FirstChunkMinSizeStream extends TransformStream {
+	constructor(options = {}) {
+		if (typeof options.minSize !== 'number') {
+			throw new TypeError('`minSize` option required');
 		}
 
-		super(opts);
+		super(options);
 
-		this._firstChunk = true;
-		this._minSize = opts.minSize;
+		this._isFirstChunk = true;
+		this._minimumSize = options.minSize;
 	}
-	_transform(chunk, enc, cb) {
-		if (this._firstChunk) {
-			this._firstChunk = false;
+
+	_transform(chunk, encoding, callback) {
+		if (this._isFirstChunk) {
+			this._isFirstChunk = false;
 			this._buffer = chunk;
-			cb();
+			callback();
 			return;
 		}
 
-		if (this._buffer.length < this._minSize) {
+		if (this._buffer.length < this._minimumSize) {
 			this._buffer = Buffer.concat([this._buffer, chunk]);
-			cb();
+			callback();
 			return;
 		}
 
-		if (this._buffer.length >= this._minSize) {
+		if (this._buffer.length >= this._minimumSize) {
 			this.push(this._buffer);
 			this._buffer = false;
 		}
 
 		this.push(chunk);
-		cb();
+		callback();
 	}
-	_flush(cb) {
+
+	_flush(callback) {
 		if (this._buffer) {
 			this.push(this._buffer);
 		}
 
-		cb();
+		callback();
 	}
 }
-
-module.exports = FirstChunkMinSizeStream;
